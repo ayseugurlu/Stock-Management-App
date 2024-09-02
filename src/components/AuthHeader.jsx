@@ -3,8 +3,8 @@ import React from 'react'
 
 const AuthHeader = () => {
   return (
-    <Grid item xs={12} mt={10} mb={5}>
-        <Typography variant='h3' color="gray" align='center'>
+    <Grid item xs={12} mb={3}>
+        <Typography variant='h3' color="primary.main" align='center'>
             Stock Management App
         </Typography>
     </Grid>
