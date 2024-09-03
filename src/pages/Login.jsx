@@ -6,21 +6,17 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import AuthImage from "../components/AuthImage";
 import { Link } from "react-router-dom";
+import useAuthCall from "../hooks/useAuthCall";
 
 
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  lastName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+const SigninSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
+  password:Yup.string().required().min(8).matches(/\d+/, "Please include at least one digit!").matches(/[a-z]/, "Please include at least one lowercase character.").matches(/[A-Z]/, "Please include at least one uppercase character.").matches(/[@$?%&*!+]/,"Please include at least one special symbol.(@$?%&*!+)")
 });
 
-const Register = () => {
+const Login = () => {
+
+  const {login} = useAuthCall()
   return (
     <Container maxWidth="lg"sx={{maxHeight:"100vh"}}>
       <Grid container  sx={{display:"flex",flexDirection:"row-reverse", flexWrap:"wrap",alignItems:"center"}}>
@@ -53,10 +49,11 @@ const Register = () => {
               password: "",
               email: ""
             }}
-            validationSchema={SignupSchema}
+            validationSchema={SigninSchema}
             onSubmit={(values) => {
               // same shape as initial values
               console.log(values);
+              login(values)
             }}
           >
             {({
@@ -93,7 +90,7 @@ const Register = () => {
                       error={touched.password && Boolean(errors.password)}
                     />
 
-                    <Button type="submit" variant="contained" color="secondary">SIGN UP</Button>
+                    <Button type="submit" variant="contained" color="secondary">LOGIN</Button>
 
                   </Box>
 
@@ -116,4 +113,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

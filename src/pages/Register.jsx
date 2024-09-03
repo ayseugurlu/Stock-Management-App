@@ -6,6 +6,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import AuthImage from "../components/AuthImage";
 import { Link } from "react-router-dom";
+import useAuthCall from "../hooks/useAuthCall";
 
 
 const SignupSchema = Yup.object().shape({
@@ -23,6 +24,8 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Register = () => {
+
+  const {register} = useAuthCall()
   return (
     <Container maxWidth="lg"sx={{maxHeight:"100vh"}}>
       <Grid container  sx={{display:"flex",flexDirection:"row-reverse", alignItems:"center", flexWrap:"wrap"}}>
@@ -58,10 +61,14 @@ const Register = () => {
               firstName: "",
               lastName: "",
             }}
+            
             validationSchema={SignupSchema}
+
             onSubmit={(values) => {
               // same shape as initial values
               console.log(values);
+
+              register(values)
             }}
           >
             {({
@@ -78,7 +85,7 @@ const Register = () => {
                   <Box sx={{display:"flex", flexDirection:"column" , gap:3}}>
 
                   <TextField
-                      name=""
+                      name="username"
                       label="Username"
                       value={values.username}
                       onChange={handleChange}
