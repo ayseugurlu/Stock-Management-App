@@ -1,18 +1,15 @@
-import { Avatar, Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import AuthHeader from "../components/AuthHeader";
 import { LockOpen } from "@mui/icons-material";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
+import { Formik } from "formik";
 import AuthImage from "../components/AuthImage";
 import { Link } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
+import LoginForm, { SigninSchema } from "../components/LoginForm";
 
 
-const SigninSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password:Yup.string().required().min(8).matches(/\d+/, "Please include at least one digit!").matches(/[a-z]/, "Please include at least one lowercase character.").matches(/[A-Z]/, "Please include at least one uppercase character.").matches(/[@$?%&*!+]/,"Please include at least one special symbol.(@$?%&*!+)")
-});
+
 
 const Login = () => {
 
@@ -50,52 +47,17 @@ const Login = () => {
               email: ""
             }}
             validationSchema={SigninSchema}
-            onSubmit={(values) => {
+            onSubmit={(values,actions) => {
               // same shape as initial values
               console.log(values);
               login(values)
+              actions.resetForm()
+              actions.setSubmitting(false)
             }}
+
+            component={props => <LoginForm {...props}/>}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              /* and other goodies */
-            }) => (
-              <Form>
-                  <Box sx={{display:"flex", flexDirection:"column" , gap:3}}>
-                  
-                    <TextField
-                      name="email"
-                      label="Email"
-                      id="email"
-                      type="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.email && Boolean(errors.email)}
-                    />
-                    <TextField
-                      name="password"
-                      id="password"
-                      type="password"
-                      label="Password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.password && Boolean(errors.password)}
-                    />
-
-                    <Button type="submit" variant="contained" color="secondary">LOGIN</Button>
-
-                  </Box>
-
-              </Form>
-            )}
+            
           </Formik>
 
           <Box textAlign="center" mt={3} fontSize={18}>

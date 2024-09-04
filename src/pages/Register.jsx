@@ -66,9 +66,11 @@ const Register = () => {
 
             onSubmit={(values) => {
               // same shape as initial values
-              console.log(values);
+              console.log(values,actions);
 
               register(values)
+              actions.resetForm();
+              actions.setSubmitting(false)
             }}
           >
             {({
