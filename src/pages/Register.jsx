@@ -135,7 +135,7 @@ const Register = () => {
                       error={touched.password && Boolean(errors.password)}
                     />
 
-                    <Button type="submit" variant="contained" color="secondary">SIGN UP</Button>
+                    <Button type="submit" variant="contained" color="primary">SIGN UP</Button>
 
                   </Box>
 

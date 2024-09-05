@@ -13,11 +13,11 @@ function App() {
     palette: {
       primary: {
         main: "#3E3D77",
-        second: "#A1C7E0"
+        second: "#99B4BF"
       },
       secondary: {
-        main: "#6A1D99",
-        second: "#E2BDE7",
+        main: "#F2AC57",
+        second: "#F2BE5C",
         contrastText: "#FF5F5D"
       },
       },
