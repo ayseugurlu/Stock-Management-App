@@ -13,6 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuListItem from "../components/MenuListItem";
 import { Outlet } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
+import { Button } from "@mui/material";
 
 
 const drawerWidth = 240;
@@ -56,6 +57,9 @@ const Dashboard = (props) => {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          backgroundColor: "white",
+          color:"primary.main",
+          borderRadius:"0.5rem"
         }}
       >
         <Toolbar>
@@ -69,16 +73,26 @@ const Dashboard = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" >
+          <Typography variant="h6" noWrap component="div" sx={{flexGrow:1}}>
            STOCK MANEGEMENT APP
           </Typography>
-          <IconButton
+          <Button
             color="inherit"
-            variant="contained"
             onClick={logout}
+            sx={{"&:hover":{
+              backgroundColor:"primary.second",
+              "& .MuiSvgIcon-root": {
+                color:"secondary.contrastText"
+              }
+              },
+               "& .MuiSvgIcon-root": {
+                ml:1
+              }
+
+            }}
           >
-            <LogoutIcon />
-          </IconButton>
+           Logout <LogoutIcon />
+          </Button>
         </Toolbar>
       </AppBar>
       <Box

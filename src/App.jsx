@@ -13,16 +13,16 @@ function App() {
     palette: {
       primary: {
         main: "#3E3D77",
-        second: "#6C63FF"
+        second: "#A1C7E0"
       },
       secondary: {
         main: "#6A1D99",
         second: "#E2BDE7",
+        contrastText: "#FF5F5D"
       },
-      somon: {
-        main: "#D98C71",
       },
-    },
+      
+     
   });
   return (
     <ErrorBoundary>
