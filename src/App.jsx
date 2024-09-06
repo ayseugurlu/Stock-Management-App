@@ -6,6 +6,10 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import ErrorBoundary from './components/ErrorBoundary';
 import store from './app/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import {persistor} from "./app/store"
+
+
 
 function App() {
   
@@ -28,7 +32,9 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <AppRouters/>
+          </PersistGate>
         </Provider>
         <ToastContainer />
       </ThemeProvider>
