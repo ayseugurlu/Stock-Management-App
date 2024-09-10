@@ -10,6 +10,7 @@ import {
 } from "../features/authSlice";
 import { useSelector } from "react-redux";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import useAxios, { axiosPublic } from "./useAxios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -17,13 +18,17 @@ const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {token} = useSelector((store)=> store.auth)
+  
+
+  const axiosWithToken = useAxios()
 
 
   const register = async (userInfo) => {
     dispatch(fetchStart());
 
     try {
-      const { data } = await axios.post(`${BASE_URL}users`, userInfo);
+    
+      const {data} = await axiosPublic.post("users/", userInfo)
       console.log(data);
 
       dispatch(registerSuccess(data));
@@ -40,12 +45,13 @@ const useAuthCall = () => {
     dispatch(fetchStart());
 
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/login`, userInfo);
-      console.log("logindata:", data);
+   
+      const {data} = await axiosPublic.post("auth/login",userInfo)
 
       dispatch(loginSuccess(data));
 
       console.log(dispatch(loginSuccess(data)));
+    
 
       toastSuccessNotify("Login performed")
       navigate("/stock");
@@ -61,11 +67,7 @@ const useAuthCall = () => {
 
     try {
 
-        await axios(`${BASE_URL}auth/logout` , {
-            headers:{
-                Authorization: `Token ${token}`
-            }
-        })
+        await axiosWithToken.get("auth/logout/")
 
         dispatch(logoutSuccess())
         toastSuccessNotify("Logout performed")
