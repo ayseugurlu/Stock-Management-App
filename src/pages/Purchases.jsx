@@ -1,19 +1,70 @@
-import { Box, Button, Container, Typography } from '@mui/material'
-import React from 'react'
-import PurchaseTable from '../components/Tables/Purchasetable'
+import { Button, Container, Typography } from "@mui/material";
+import React from "react";
+import { useState } from "react";
+import useStockCall from "../hooks/useStockCall";
+import { useEffect } from "react";
+import PurchaseModal from "../components/Modals/PurchaseModal";
+import PurchaseTable from "../components/Tables/Purchasetable";
 
 const Purchases = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setInitialState({
+      firmId: "",
+      brandId: "",
+      productId: "",
+      quantity: 0,
+      price: 0,
+    });
+  };
+  const [initialState, setInitialState] = useState({
+    firmId: "",
+    brandId: "",
+    productId: "",
+    quantity: 0,
+    price: 0,
+  });
+
+  const { getStockData } = useStockCall();
+
+  useEffect(() => {
+    getStockData("purchases");
+    getStockData("products");
+    getStockData("brands");
+    getStockData("categories");
+    getStockData("firms");
+  }, []);
+
+  console.log(initialState);
+
   return (
     <Container>
-      <Typography variant='h4' component="h1" textAlign="center" color="secondary.main" mb={5}>Purchases</Typography>
+      <Typography
+        align="center"
+        color="secondary.main"
+        variant="h4"
+        component="h1"
+        mb={5}
+      >
+        Products
+      </Typography>
 
-      <Button variant='contained' >ADD NEW PURCHASE</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        ADD NEW PURCHASE
+      </Button>
+      {open && (
+        <PurchaseModal
+          open={open}
+          handleClose={handleClose}
+          initialState={initialState}
+        />
+      )}
 
-      <Box>
-        <PurchaseTable/>
-      </Box>
+      <PurchaseTable />
     </Container>
-  )
-}
+  );
+};
 
-export default Purchases
+export default Purchases;

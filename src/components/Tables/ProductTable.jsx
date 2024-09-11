@@ -4,56 +4,42 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useSelector } from 'react-redux';
 import DeleteSweepOutlinedIcon from '@mui/icons-material/DeleteSweepOutlined';
 import useStockCall from '../../hooks/useStockCall';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
 
 
 
-export default function PurchaseTable() {
+export default function ProductTable() {
 
-    const {purchases} =useSelector(state=>state.stock)
+    const {products} =useSelector(state=>state.stock)
     const {deleteStockData}=useStockCall()
 
     const columns = [
-        { field: 'createdAt', headerName: 'Date', width: 200 },
+        { field: '_id', headerName: 'ID', width: 250 },
         {
-          field: 'firmId',
-          headerName: 'Firm Name',
-          width: 110,
+          field: 'categoryId',
+          headerName: 'Category Name',
+          width: 200,
           valueGetter: (value) => value.name
           
         },
         {
           field: 'brandId',
           headerName: 'Brand Name',
-          width: 110,
+          width: 200,
           valueGetter: (value) => value.name
           
         },
         {
-          field: "productId",
+          field: 'name',
           headerName: 'Product Name',
-          width: 110,
-          valueGetter: (value) => value?.name
+          type: 'number',
+          width: 150,
+          
         },
         {
           field: 'quantity',
-          headerName: 'Quantity',
-          type: 'number',
-          width: 110,
-          
-        },
-        {
-          field: 'price',
-          headerName: 'Price',
-          type: 'number',
-          width: 110,
-          
-        },
-        {
-          field: 'amount',
-          headerName: 'Amount',
+          headerName: 'Stock',
           type: 'number',
           width: 150,
           
@@ -64,12 +50,7 @@ export default function PurchaseTable() {
           sortable: false,
           type: 'number',
           width: 90,
-          renderCell:(params)=> (
-            <>
-              <EditOutlinedIcon/>
-          <DeleteSweepOutlinedIcon sx={{color:"secondary.contrastText"}} onClick={()=>deleteStockData("products",params.id)}/>
-            </>
-          )
+          renderCell:(params)=> (<DeleteSweepOutlinedIcon sx={{color:"secondary.contrastText"}} onClick={()=>deleteStockData("products",params.id)}/>)
           
         }
        
@@ -83,7 +64,7 @@ export default function PurchaseTable() {
     <Box sx={{ height: 450, width: '100%' }}>
       <DataGrid
       sx={{m:6}}
-        rows={purchases}
+        rows={products}
         columns={columns}
         initialState={{
           pagination: {

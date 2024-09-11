@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchFail, fetchStart } from "../features/authSlice";
 import { getStockSuccess } from "../features/stockSlice";
-import axios from "axios";
 import useAxios from "./useAxios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
