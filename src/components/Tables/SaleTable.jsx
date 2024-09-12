@@ -7,8 +7,8 @@ import useStockCall from "../../hooks/useStockCall";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { CleaningServices } from "@mui/icons-material";
 
-export default function PurchaseTable({ handleOpen, setInitialState }) {
-  const { purchases } = useSelector((state) => state.stock);
+export default function SaleTable({ handleOpen, setInitialState }) {
+  const { sales } = useSelector((state) => state.stock);
   const { deleteStockData } = useStockCall();
 
   const columns = [
@@ -20,16 +20,6 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
       headerAlign: "center",
       align: "center",
       flex: 0.8,
-    },
-    {
-      field: "firmId",
-      headerName: "Firm Name",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      editable: false,
-      flex: 2,
-      valueGetter: (value) => value?.name,
     },
     {
       field: "brandId",
@@ -95,8 +85,7 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
             onClick={() => {
               handleOpen();
               setInitialState({
-                _id: params.row._id,
-                firmId: params.row?.firmId,
+                _id: params._id,
                 brandId: params.row?.brandId,
                 productId: params.row?.productId,
                 quantity: params.row?.quantity,
@@ -107,7 +96,7 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
 
           <DeleteSweepOutlinedIcon
             sx={{ color: "secondary.contrastText" }}
-            onClick={() => deleteStockData("purchases", params.id)}
+            onClick={() => deleteStockData("sales", params.id)}
           />
         </>
       ),
@@ -122,7 +111,7 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
     <Box sx={{ height: 450, width: "100%" }}>
       <DataGrid
         sx={{ m: 6 }}
-        rows={purchases}
+        rows={sales}
         columns={columns}
         initialState={{
           pagination: {

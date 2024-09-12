@@ -14,6 +14,8 @@ export default function ProductTable() {
     const {products} =useSelector(state=>state.stock)
     const {deleteStockData}=useStockCall()
 
+    console.log(products);
+
     const columns = [
         { field: '_id', headerName: 'ID', width: 250 },
         {

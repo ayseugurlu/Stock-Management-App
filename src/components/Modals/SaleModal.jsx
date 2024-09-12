@@ -18,12 +18,12 @@ const style = {
   p: 4,
 };
 
-export default function PurchaseModal({ open, handleClose, initialState }) {
+export default function SaleModal({ open, handleClose, initialState }) {
   const [info, setInfo] = useState(initialState);
 
   const { postStockData, putStockData } = useStockCall();
 
-  const {brands,firms,products} =useSelector(state=>state.stock)
+  const {brands,products} =useSelector(state=>state.stock)
 
   
 
@@ -38,9 +38,9 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
     e.preventDefault();
 
     if (info._id) {
-      putStockData("purchases", info);
+      putStockData("sales", info);
     } else {
-      postStockData("purchases", info);
+      postStockData("sales", info);
     }
 
     handleClose();
@@ -62,23 +62,7 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
             onSubmit={handleSubmit}
           >
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-firm-label">Firm</InputLabel>
-              <Select
-                labelId="demo-simple-firm-label"
-                id="demo-simple-select"
-                name="firmId"
-                value={info.firmId?._id}
-                label="Firm"
-                onChange={handleChange}
-              >
-              {firms.map((firm)=> (
-                <MenuItem key={firm._id} value={firm._id}>{firm.name}</MenuItem>
-                ))}
-                
-               
-              </Select>
-            </FormControl>
+           
             <FormControl fullWidth>
               <InputLabel id="demo-simple-brand-label">Brand</InputLabel>
               <Select
@@ -120,6 +104,7 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
               variant="outlined"
               value={info.quantity}
               onChange={handleChange}
+              required
               
             />
             <TextField
@@ -129,6 +114,7 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
               variant="outlined"
               value={info.price}
               onChange={handleChange}
+              required
               
             />
            
@@ -139,7 +125,7 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
               color="primary"
               onClick={handleSubmit}
             >
-              {info._id ? "UPDATE PURCHASE" : "SAVE PURCHASE"}
+              {info._id ? "UPDATE SALE" : "SAVE SALE"}
             </Button>
           </Box>
         </Box>
