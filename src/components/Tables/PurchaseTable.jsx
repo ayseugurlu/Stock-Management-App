@@ -1,88 +1,127 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useSelector } from 'react-redux';
-import DeleteSweepOutlinedIcon from '@mui/icons-material/DeleteSweepOutlined';
-import useStockCall from '../../hooks/useStockCall';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
+import DeleteSweepOutlinedIcon from "@mui/icons-material/DeleteSweepOutlined";
+import useStockCall from "../../hooks/useStockCall";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { CleaningServices } from "@mui/icons-material";
 
+export default function PurchaseTable({ handleOpen, setInitialState }) {
+  const { purchases } = useSelector((state) => state.stock);
+  const { deleteStockData } = useStockCall();
 
+  const columns = [
+    {
+      field: "createdAt",
+      headerName: "Date",
+      minWidth: 40,
+      maxWidth: 70,
+      headerAlign: "center",
+      align: "center",
+      flex: 0.8,
+    },
+    {
+      field: "firmId",
+      headerName: "Firm Name",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      editable: false,
+      flex: 2,
+      valueGetter: (value) => value?.name,
+    },
+    {
+      field: "brandId",
+      headerName: "Brand Name",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      editable: false,
+      flex: 2,
+      valueGetter: (value) => value?.name,
+    },
+    {
+      field: "productId",
+      headerName: "Product Name",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      editable: false,
+      flex: 2,
+      valueGetter: (value) => value?.name,
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      type: "number",
+      width: 110,
+      headerAlign: "center",
+      align: "center",
+      flex: 0.8,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      type: "number",
+      width: 110,
+      headerAlign: "center",
+      align: "center",
+      flex: 0.8,
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      width: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 0.8,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      sortable: false,
+      type: "number",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 40,
+      flex: 1,
+      renderCell: (params) => (
+        <>
+          {}
+          <EditOutlinedIcon
+            sx={{ color: "primary.main" }}
+            onClick={() => {
+              handleOpen();
+              setInitialState({
+                _id: params.id,
+                firmId: params.row?.firmId || "",
+                brandId: params.row?.brandId|| "",
+                productId: params.row?.productId || "",
+                quantity: params.row?.quantity,
+                price: params.row?.price,
+              });
+            }}
+          />
 
+          <DeleteSweepOutlinedIcon
+            sx={{ color: "secondary.contrastText" }}
+            onClick={() => deleteStockData("purchases", params.id)}
+          />
+        </>
+      ),
+    },
+  ];
 
-
-export default function PurchaseTable() {
-
-    const {purchases} =useSelector(state=>state.stock)
-    const {deleteStockData}=useStockCall()
-
-    const columns = [
-        { field: 'createdAt', headerName: 'Date', width: 200 },
-        {
-          field: 'firmId',
-          headerName: 'Firm Name',
-          width: 110,
-          valueGetter: (value) => value.name
-          
-        },
-        {
-          field: 'brandId',
-          headerName: 'Brand Name',
-          width: 110,
-          valueGetter: (value) => value.name
-          
-        },
-        {
-          field: "productId",
-          headerName: 'Product Name',
-          width: 110,
-          valueGetter: (value) => value?.name
-        },
-        {
-          field: 'quantity',
-          headerName: 'Quantity',
-          type: 'number',
-          width: 110,
-          
-        },
-        {
-          field: 'price',
-          headerName: 'Price',
-          type: 'number',
-          width: 110,
-          
-        },
-        {
-          field: 'amount',
-          headerName: 'Amount',
-          type: 'number',
-          width: 150,
-          
-        },
-        {
-          field: 'actions',
-          headerName: 'Actions',
-          sortable: false,
-          type: 'number',
-          width: 90,
-          renderCell:(params)=> (
-            <>
-              <EditOutlinedIcon/>
-          <DeleteSweepOutlinedIcon sx={{color:"secondary.contrastText"}} onClick={()=>deleteStockData("products",params.id)}/>
-            </>
-          )
-          
-        }
-       
-      ];
-
-    function getRowId(row) {
-        // console.log(row);
-        return row._id;
-      }
+  function getRowId(row) {
+    // console.log(row);
+    return row._id;
+  }
   return (
-    <Box sx={{ height: 450, width: '100%' }}>
+    <Box sx={{ height: 450, width: "100%" }}>
       <DataGrid
-      sx={{m:6}}
+        sx={{ m: 6 }}
         rows={purchases}
         columns={columns}
         initialState={{
@@ -92,7 +131,7 @@ export default function PurchaseTable() {
             },
           },
         }}
-        pageSizeOptions={[5,10,15,25,50,100]}
+        pageSizeOptions={[5, 10, 15, 25, 50, 100]}
         // checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}

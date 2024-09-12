@@ -23,9 +23,9 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
 
   const { postStockData, putStockData } = useStockCall();
 
-  const {categories,brands} =useSelector(state=>state.stock)
+  const {brands,firms,products} =useSelector(state=>state.stock)
 
-  console.log(categories);
+  
 
   const handleChange = (e) => {
     // console.log(e.target.name);
@@ -38,9 +38,9 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
     e.preventDefault();
 
     if (info._id) {
-      putStockData("products", info);
+      putStockData("purchases", info);
     } else {
-      postStockData("products", info);
+      postStockData("purchases", info);
     }
 
     handleClose();
@@ -63,17 +63,17 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
             onSubmit={handleSubmit}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-category-label">Category</InputLabel>
+              <InputLabel id="demo-simple-firm-label">Firm</InputLabel>
               <Select
-                labelId="demo-simple-category-label"
+                labelId="demo-simple-firm-label"
                 id="demo-simple-select"
-                name="categoryId"
-                value={info.categoryId}
-                label="Category"
+                name="firmId"
+                value={info.firmId}
+                label="Firm"
                 onChange={handleChange}
               >
-              {categories.map((category)=> (
-                <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>
+              {firms.map((firm)=> (
+                <MenuItem key={firm._id} value={firm._id}>{firm.name}</MenuItem>
                 ))}
                 
                
@@ -96,12 +96,38 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
                
               </Select>
             </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-product-label">Product</InputLabel>
+              <Select
+                labelId="demo-simple-product-label"
+                id="demo-simple-select"
+                name="productId"
+                value={info.productId}
+                label="Product"
+                onChange={handleChange}
+              >
+              {products.map((product)=> (
+                <MenuItem key={product._id} value={product._id}>{product.name}</MenuItem>
+                ))}
+                
+               
+              </Select>
+            </FormControl>
             <TextField
-              name="name"
-              label="Brand Name"
-              type="text"
+              name="quantity"
+              label="Quantity"
+              type="number"
               variant="outlined"
-              value={info.name}
+              value={info.quantity}
+              onChange={handleChange}
+              
+            />
+            <TextField
+              name="price"
+              label="Price"
+              type="number"
+              variant="outlined"
+              value={info.price}
               onChange={handleChange}
               
             />
@@ -113,7 +139,7 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
               color="primary"
               onClick={handleSubmit}
             >
-              {info._id ? "UPDATE PRODUCT" : "SAVE PRODUCT"}
+              {info._id ? "UPDATE PURCHASE" : "SAVE PURCHASE"}
             </Button>
           </Box>
         </Box>

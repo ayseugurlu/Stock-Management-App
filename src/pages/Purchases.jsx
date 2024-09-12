@@ -48,7 +48,7 @@ const Purchases = () => {
         component="h1"
         mb={5}
       >
-        Products
+        Purchases
       </Typography>
 
       <Button variant="contained" onClick={handleOpen}>
@@ -62,7 +62,7 @@ const Purchases = () => {
         />
       )}
 
-      <PurchaseTable />
+      <PurchaseTable  handleOpen={handleOpen} setInitialState={setInitialState}/>
     </Container>
   );
 };
