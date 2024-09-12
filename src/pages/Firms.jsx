@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import FirmCard from "../components/Cards/FirmCard";
-
 import FirmModal from "../components/Modals/FirmModal";
 import { useState } from "react";
+import { loadingStyle } from "./Products";
 
 const Firms = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ const Firms = () => {
     });
   };
   const { getStockData } = useStockCall();
-  const { firms } = useSelector((state) => state.stock);
+  const { firms,loading,error } = useSelector((state) => state.stock);
   console.log(firms);
   const [initialState, setInitialState] = useState({
     name: "",
@@ -45,15 +45,20 @@ const Firms = () => {
       >
         Firms
       </Typography>
-
-      <Button variant="contained" onClick={handleOpen}>
+      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+        <Typography align="center" variant="h5" component="h3" color="error">
+          Something went wrong...
+        </Typography>
+      ) : (
+        <>
+           <Button variant="contained" onClick={handleOpen}>
         ADD NEW FIRM
       </Button>
       <FirmModal
         open={open}
         handleClose={handleClose}
         initialState={initialState}
-      /> 
+      />
       <Grid container spacing={3} mt={3}>
         {firms.map((firm) => (
           <Grid item xs={12} md={6} xl={3} key={firm._id}>
@@ -65,6 +70,9 @@ const Firms = () => {
           </Grid>
         ))}
       </Grid>
+        </>
+      )}
+     
     </Container>
   );
 };

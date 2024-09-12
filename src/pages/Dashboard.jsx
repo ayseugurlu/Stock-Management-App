@@ -14,6 +14,7 @@ import MenuListItem from "../components/MenuListItem";
 import { Outlet } from "react-router-dom";
 import useAuthCall from "../hooks/useAuthCall";
 import { Button } from "@mui/material";
+import logo from "../assets/logo.png"
 
 
 const drawerWidth = 240;
@@ -73,8 +74,9 @@ const Dashboard = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{flexGrow:1}}>
-           STOCK MANEGEMENT APP
+          <Typography variant="h6" noWrap component="div" sx={{flexGrow:1,fontWeight:"700"}}>
+           <Box src={logo} component="img" width={30} mr={1} sx={{display:{xs:"none" ,sm:"inline-block"}}}/> 
+              STOCK MANEGEMENT APP
           </Typography>
           <Button
             color="inherit"
@@ -118,7 +120,7 @@ const Dashboard = (props) => {
           <MenuListItem/>
         </Drawer>
         <Drawer
-          variant="permanent"
+          variant="persistent"
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },

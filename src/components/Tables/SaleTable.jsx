@@ -26,7 +26,7 @@ export default function SaleTable({ handleOpen, setInitialState }) {
       headerName: "Brand Name",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 140,
       editable: false,
       flex: 2,
       valueGetter: (value) => value?.name,
@@ -36,7 +36,7 @@ export default function SaleTable({ handleOpen, setInitialState }) {
       headerName: "Product Name",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 140,
       editable: false,
       flex: 2,
       valueGetter: (value) => value?.name,
@@ -75,7 +75,7 @@ export default function SaleTable({ handleOpen, setInitialState }) {
       type: "number",
       headerAlign: "center",
       align: "center",
-      minWidth: 40,
+      minWidth: 70,
       flex: 1,
       renderCell: (params) => (
         <>

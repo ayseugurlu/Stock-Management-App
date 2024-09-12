@@ -18,10 +18,10 @@ export default function FirmCard({ _id, name, phone, address, image ,handleOpen 
 
   const {deleteStockData} =useStockCall()
   return (
-    <Card sx={{ maxWidth: 350, height: 450 }}>
+    <Card sx={{ maxWidth: 350, height: 350 , display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center" }}>
       <CardMedia
         component="img"
-        sx={{ height: 250, objectFit: "contain" }}
+        sx={{ height: 140, objectFit: "contain" }}
         image={image}
       />
 

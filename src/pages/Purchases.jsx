@@ -5,9 +5,12 @@ import useStockCall from "../hooks/useStockCall";
 import { useEffect } from "react";
 import PurchaseModal from "../components/Modals/PurchaseModal";
 import PurchaseTable from "../components/Tables/Purchasetable";
+import { useSelector } from "react-redux";
+import { loadingStyle } from "./Products";
 
 const Purchases = () => {
   const [open, setOpen] = useState(false);
+  const {loading, error } = useSelector((state) => state.stock);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -50,8 +53,13 @@ const Purchases = () => {
       >
         Purchases
       </Typography>
-
-      <Button variant="contained" onClick={handleOpen}>
+      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+        <Typography align="center" variant="h5" component="h3" color="error">
+          Something went wrong...
+        </Typography>
+      ) : (
+        <>
+        <Button variant="contained" onClick={handleOpen}>
         ADD NEW PURCHASE
       </Button>
       {open && (
@@ -63,6 +71,9 @@ const Purchases = () => {
       )}
 
       <PurchaseTable  handleOpen={handleOpen} setInitialState={setInitialState}/>
+        </>
+      )}
+     
     </Container>
   );
 };

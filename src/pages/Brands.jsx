@@ -6,6 +6,7 @@ import useStockCall from '../hooks/useStockCall';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import BrandModal from  "../components/Modals/BrandModal"
+import { loadingStyle } from './Products';
 
 
 const Brands = () => {
@@ -26,7 +27,7 @@ const Brands = () => {
 
   const { getStockData } = useStockCall();
 
-  const { brands} = useSelector((state) => state.stock);
+  const { brands,loading,error} = useSelector((state) => state.stock);
   console.log(brands);
 
   useEffect(()=> {
@@ -47,8 +48,13 @@ console.log(initialState);
       >
         Brands
       </Typography>
-      
-      <Button variant="contained" onClick={handleOpen}>
+      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+        <Typography align="center" variant="h5" component="h3" color="error">
+          Something went wrong...
+        </Typography>
+      ) : (
+        <>
+            <Button variant="contained" onClick={handleOpen}>
         ADD NEW BRAND
       </Button>
       {open && <BrandModal open={open} handleClose={handleClose} initialState={initialState}/> }
@@ -59,6 +65,9 @@ console.log(initialState);
           </Grid>
         ))}
       </Grid>
+        </>
+      )}
+    
     </Container>
   )
 }
