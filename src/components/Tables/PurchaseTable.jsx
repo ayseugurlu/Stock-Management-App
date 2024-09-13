@@ -20,6 +20,7 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
       headerAlign: "center",
       align: "center",
       flex: 0.8,
+      renderCell: ({row}) => {new Date(row.createdAt).toLocaleString("de-DE")}
     },
     {
       field: "firmId",
