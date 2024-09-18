@@ -4,7 +4,7 @@ import { useState } from "react";
 import useStockCall from "../hooks/useStockCall";
 import { useEffect } from "react";
 import PurchaseModal from "../components/Modals/PurchaseModal";
-import PurchaseTable from "../components/Tables/Purchasetable";
+import PurchaseTable from "../components/Tables/PurchaseTable";
 import { useSelector } from "react-redux";
 import { loadingStyle } from "./Products";
 

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import DeleteSweepOutlinedIcon from "@mui/icons-material/DeleteSweepOutlined";
 import useStockCall from "../../hooks/useStockCall";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { CleaningServices } from "@mui/icons-material";
+
 
 export default function PurchaseTable({ handleOpen, setInitialState }) {
   const { purchases } = useSelector((state) => state.stock);
