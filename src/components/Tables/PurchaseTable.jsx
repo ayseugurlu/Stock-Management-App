@@ -6,7 +6,6 @@ import DeleteSweepOutlinedIcon from "@mui/icons-material/DeleteSweepOutlined";
 import useStockCall from "../../hooks/useStockCall";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-
 export default function PurchaseTable({ handleOpen, setInitialState }) {
   const { purchases } = useSelector((state) => state.stock);
   const { deleteStockData } = useStockCall();
@@ -20,7 +19,9 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
       headerAlign: "center",
       align: "center",
       flex: 0.8,
-      renderCell: ({row}) => {new Date(row.createdAt).toLocaleString("de-DE")}
+      renderCell: ({ row }) => {
+        new Date(row.createdAt).toLocaleString("de-DE");
+      },
     },
     {
       field: "firmId",
@@ -116,7 +117,6 @@ export default function PurchaseTable({ handleOpen, setInitialState }) {
   ];
 
   function getRowId(row) {
-    // console.log(row);
     return row._id;
   }
   return (

@@ -28,16 +28,13 @@ const Purchases = () => {
   });
 
   const { getStockData } = useStockCall();
-  const {loading, error } = useSelector((state) => state.stock);
+  const { loading, error } = useSelector((state) => state.stock);
 
   useEffect(() => {
     getStockData("sales");
     getStockData("products");
     getStockData("brands");
-
   }, []);
-
-  console.log(initialState);
 
   return (
     <Container>
@@ -50,27 +47,31 @@ const Purchases = () => {
       >
         Sales
       </Typography>
-      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+      {loading ? (
+        <Typography mt={20} ml={20} sx={loadingStyle}></Typography>
+      ) : error ? (
         <Typography align="center" variant="h5" component="h3" color="error">
           Something went wrong...
         </Typography>
       ) : (
         <>
-            <Button variant="contained" onClick={handleOpen}>
-        ADD NEW SALE
-      </Button>
-      {open && (
-        <SaleModal
-          open={open}
-          handleClose={handleClose}
-          initialState={initialState}
-        />
-      )}
+          <Button variant="contained" onClick={handleOpen}>
+            ADD NEW SALE
+          </Button>
+          {open && (
+            <SaleModal
+              open={open}
+              handleClose={handleClose}
+              initialState={initialState}
+            />
+          )}
 
-      <SaleTable  handleOpen={handleOpen} setInitialState={setInitialState}/>
+          <SaleTable
+            handleOpen={handleOpen}
+            setInitialState={setInitialState}
+          />
         </>
       )}
-    
     </Container>
   );
 };

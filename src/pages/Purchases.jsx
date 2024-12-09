@@ -10,7 +10,7 @@ import { loadingStyle } from "./Products";
 
 const Purchases = () => {
   const [open, setOpen] = useState(false);
-  const {loading, error } = useSelector((state) => state.stock);
+  const { loading, error } = useSelector((state) => state.stock);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -40,8 +40,6 @@ const Purchases = () => {
     getStockData("firms");
   }, []);
 
-  console.log(initialState);
-
   return (
     <Container>
       <Typography
@@ -53,27 +51,31 @@ const Purchases = () => {
       >
         Purchases
       </Typography>
-      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+      {loading ? (
+        <Typography mt={20} ml={20} sx={loadingStyle}></Typography>
+      ) : error ? (
         <Typography align="center" variant="h5" component="h3" color="error">
           Something went wrong...
         </Typography>
       ) : (
         <>
-        <Button variant="contained" onClick={handleOpen}>
-        ADD NEW PURCHASE
-      </Button>
-      {open && (
-        <PurchaseModal
-          open={open}
-          handleClose={handleClose}
-          initialState={initialState}
-        />
-      )}
+          <Button variant="contained" onClick={handleOpen}>
+            ADD NEW PURCHASE
+          </Button>
+          {open && (
+            <PurchaseModal
+              open={open}
+              handleClose={handleClose}
+              initialState={initialState}
+            />
+          )}
 
-      <PurchaseTable  handleOpen={handleOpen} setInitialState={setInitialState}/>
+          <PurchaseTable
+            handleOpen={handleOpen}
+            setInitialState={setInitialState}
+          />
         </>
       )}
-     
     </Container>
   );
 };

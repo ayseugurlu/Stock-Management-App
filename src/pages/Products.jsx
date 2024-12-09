@@ -7,52 +7,52 @@ import { useEffect } from "react";
 import ProductModal from "../components/Modals/ProductModal";
 import ProductTable from "../components/Tables/ProductTable";
 
-
-export const loadingStyle = { display: 'block',
-  position: 'relative',
-  height: '20px',
-  width: '140px',
+export const loadingStyle = {
+  display: "block",
+  position: "relative",
+  height: "20px",
+  width: "140px",
   backgroundImage: `linear-gradient(#FFF 20px, transparent 0), 
                     linear-gradient(#FFF 20px, transparent 0), 
                     linear-gradient(#FFF 20px, transparent 0), 
                     linear-gradient(#FFF 20px, transparent 0)`,
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: '20px auto',
-  backgroundPosition: '0 0, 40px 0, 80px 0, 120px 0',
-  animation: 'pgfill 1s linear infinite',
-  '@keyframes pgfill': {
-    '0%': {
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "20px auto",
+  backgroundPosition: "0 0, 40px 0, 80px 0, 120px 0",
+  animation: "pgfill 1s linear infinite",
+  "@keyframes pgfill": {
+    "0%": {
       backgroundImage: `linear-gradient(#FFF 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0)`,
     },
-    '25%': {
+    "25%": {
       backgroundImage: `linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0)`,
     },
-    '50%': {
+    "50%": {
       backgroundImage: `linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0)`,
     },
-    '75%': {
+    "75%": {
       backgroundImage: `linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FFF 20px, transparent 0)`,
     },
-    '100%': {
+    "100%": {
       backgroundImage: `linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FF3D00 20px, transparent 0), 
                         linear-gradient(#FF3D00 20px, transparent 0)`,
     },
   },
-}
+};
 
 const Products = () => {
   const [open, setOpen] = useState(false);
@@ -72,18 +72,13 @@ const Products = () => {
   });
 
   const { getStockData } = useStockCall();
-  const {loading, error } = useSelector((state) => state.stock);
-
-  
-  
+  const { loading, error } = useSelector((state) => state.stock);
 
   useEffect(() => {
     getStockData("products");
     getStockData("brands");
     getStockData("categories");
   }, []);
-
-  // console.log(initialState);
 
   return (
     <Container>
@@ -97,28 +92,28 @@ const Products = () => {
         Products
       </Typography>
 
-
-      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+      {loading ? (
+        <Typography mt={20} ml={20} sx={loadingStyle}></Typography>
+      ) : error ? (
         <Typography align="center" variant="h5" component="h3" color="error">
           Something went wrong...
         </Typography>
       ) : (
         <>
           <Button variant="contained" onClick={handleOpen}>
-        ADD NEW PRODUCT
-      </Button>
-      {open && (
-        <ProductModal
-        open={open}
-          handleClose={handleClose}
-          initialState={initialState}
-      />)
-      }
+            ADD NEW PRODUCT
+          </Button>
+          {open && (
+            <ProductModal
+              open={open}
+              handleClose={handleClose}
+              initialState={initialState}
+            />
+          )}
 
-        <ProductTable/> 
+          <ProductTable />
         </>
       )}
-     
     </Container>
   );
 };

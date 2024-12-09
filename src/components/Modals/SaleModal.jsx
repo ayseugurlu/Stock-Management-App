@@ -2,7 +2,14 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
 
@@ -23,16 +30,11 @@ export default function SaleModal({ open, handleClose, initialState }) {
 
   const { postStockData, putStockData } = useStockCall();
 
-  const {brands,products} =useSelector(state=>state.stock)
-
-  
+  const { brands, products } = useSelector((state) => state.stock);
 
   const handleChange = (e) => {
-    // console.log(e.target.name);
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
-
-//   console.log(info);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,8 +47,6 @@ export default function SaleModal({ open, handleClose, initialState }) {
 
     handleClose();
   };
-
-  console.log(initialState);
 
   return (
     <div>
@@ -62,7 +62,6 @@ export default function SaleModal({ open, handleClose, initialState }) {
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
             onSubmit={handleSubmit}
           >
-           
             <FormControl fullWidth>
               <InputLabel id="demo-simple-brand-label">Brand</InputLabel>
               <Select
@@ -73,11 +72,11 @@ export default function SaleModal({ open, handleClose, initialState }) {
                 label="Brand"
                 onChange={handleChange}
               >
-              {brands.map((brand)=> (
-                <MenuItem key={brand._id} value={brand._id}>{brand.name}</MenuItem>
+                {brands.map((brand) => (
+                  <MenuItem key={brand._id} value={brand._id}>
+                    {brand.name}
+                  </MenuItem>
                 ))}
-                
-               
               </Select>
             </FormControl>
             <FormControl fullWidth>
@@ -90,11 +89,11 @@ export default function SaleModal({ open, handleClose, initialState }) {
                 label="Product"
                 onChange={handleChange}
               >
-              {products.map((product)=> (
-                <MenuItem key={product._id} value={product._id}>{product.name}</MenuItem>
+                {products.map((product) => (
+                  <MenuItem key={product._id} value={product._id}>
+                    {product.name}
+                  </MenuItem>
                 ))}
-                
-               
               </Select>
             </FormControl>
             <TextField
@@ -105,7 +104,6 @@ export default function SaleModal({ open, handleClose, initialState }) {
               value={info.quantity}
               onChange={handleChange}
               required
-              
             />
             <TextField
               name="price"
@@ -115,9 +113,7 @@ export default function SaleModal({ open, handleClose, initialState }) {
               value={info.price}
               onChange={handleChange}
               required
-              
             />
-           
 
             <Button
               type="submit"

@@ -2,7 +2,14 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
 
@@ -23,16 +30,11 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
 
   const { postStockData, putStockData } = useStockCall();
 
-  const {brands,firms,products} =useSelector(state=>state.stock)
-
-  
+  const { brands, firms, products } = useSelector((state) => state.stock);
 
   const handleChange = (e) => {
-    // console.log(e.target.name);
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
-
-//   console.log(info);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,8 +47,6 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
 
     handleClose();
   };
-
-  console.log(initialState);
 
   return (
     <div>
@@ -72,11 +72,11 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
                 label="Firm"
                 onChange={handleChange}
               >
-              {firms.map((firm)=> (
-                <MenuItem key={firm._id} value={firm._id}>{firm.name}</MenuItem>
+                {firms.map((firm) => (
+                  <MenuItem key={firm._id} value={firm._id}>
+                    {firm.name}
+                  </MenuItem>
                 ))}
-                
-               
               </Select>
             </FormControl>
             <FormControl fullWidth>
@@ -89,11 +89,11 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
                 label="Brand"
                 onChange={handleChange}
               >
-              {brands.map((brand)=> (
-                <MenuItem key={brand._id} value={brand._id}>{brand.name}</MenuItem>
+                {brands.map((brand) => (
+                  <MenuItem key={brand._id} value={brand._id}>
+                    {brand.name}
+                  </MenuItem>
                 ))}
-                
-               
               </Select>
             </FormControl>
             <FormControl fullWidth>
@@ -106,11 +106,11 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
                 label="Product"
                 onChange={handleChange}
               >
-              {products.map((product)=> (
-                <MenuItem key={product._id} value={product._id}>{product.name}</MenuItem>
+                {products.map((product) => (
+                  <MenuItem key={product._id} value={product._id}>
+                    {product.name}
+                  </MenuItem>
                 ))}
-                
-               
               </Select>
             </FormControl>
             <TextField
@@ -120,7 +120,6 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
               variant="outlined"
               value={info.quantity}
               onChange={handleChange}
-              
             />
             <TextField
               name="price"
@@ -129,9 +128,7 @@ export default function PurchaseModal({ open, handleClose, initialState }) {
               variant="outlined"
               value={info.price}
               onChange={handleChange}
-              
             />
-           
 
             <Button
               type="submit"

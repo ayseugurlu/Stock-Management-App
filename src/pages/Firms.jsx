@@ -21,8 +21,7 @@ const Firms = () => {
     });
   };
   const { getStockData } = useStockCall();
-  const { firms,loading,error } = useSelector((state) => state.stock);
-  console.log(firms);
+  const { firms, loading, error } = useSelector((state) => state.stock);
   const [initialState, setInitialState] = useState({
     name: "",
     phone: "",
@@ -45,34 +44,35 @@ const Firms = () => {
       >
         Firms
       </Typography>
-      {loading ?  (<Typography mt={20} ml={20} sx={loadingStyle}></Typography>):  error ? (
+      {loading ? (
+        <Typography mt={20} ml={20} sx={loadingStyle}></Typography>
+      ) : error ? (
         <Typography align="center" variant="h5" component="h3" color="error">
           Something went wrong...
         </Typography>
       ) : (
         <>
-           <Button variant="contained" onClick={handleOpen}>
-        ADD NEW FIRM
-      </Button>
-      <FirmModal
-        open={open}
-        handleClose={handleClose}
-        initialState={initialState}
-      />
-      <Grid container spacing={3} mt={3}>
-        {firms.map((firm) => (
-          <Grid item xs={12} md={6} xl={3} key={firm._id}>
-            <FirmCard
-              {...firm}
-              handleOpen={handleOpen}
-              setInitialState={setInitialState}
-            />
+          <Button variant="contained" onClick={handleOpen}>
+            ADD NEW FIRM
+          </Button>
+          <FirmModal
+            open={open}
+            handleClose={handleClose}
+            initialState={initialState}
+          />
+          <Grid container spacing={3} mt={3}>
+            {firms.map((firm) => (
+              <Grid item xs={12} md={6} xl={3} key={firm._id}>
+                <FirmCard
+                  {...firm}
+                  handleOpen={handleOpen}
+                  setInitialState={setInitialState}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
         </>
       )}
-     
     </Container>
   );
 };
