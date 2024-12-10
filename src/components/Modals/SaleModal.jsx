@@ -12,6 +12,11 @@ import {
 } from "@mui/material";
 import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
+import {
+  toastErrorNotify,
+  toastSuccessNotify,
+  toastWarnNotify,
+} from "../../helper/ToastNotify";
 
 const style = {
   position: "absolute",
@@ -31,21 +36,40 @@ export default function SaleModal({ open, handleClose, initialState }) {
   const { postStockData, putStockData } = useStockCall();
 
   const { brands, products } = useSelector((state) => state.stock);
+  console.log(products);
+  console.log(info);
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (info._id) {
-      putStockData("sales", info);
-    } else {
-      postStockData("sales", info);
+    const selectedProduct = products.find(
+      (product) => product._id === info.productId
+    );
+
+    console.log(selectedProduct);
+
+    if (selectedProduct && selectedProduct.quantity < info.quantity) {
+      toastErrorNotify(
+        `Not enough stock available. The Product in stock : ${selectedProduct.quantity}`
+      );
+      return;
     }
 
-    handleClose();
+    try {
+      if (info._id) {
+        await putStockData("sales", info);
+      } else {
+        await postStockData("sales", info);
+      }
+      toastSuccessNotify("Sale completed successfully.");
+      handleClose();
+    } catch (error) {
+      toastErrorNotify("An error occurred. Please try again.");
+    }
   };
 
   return (
